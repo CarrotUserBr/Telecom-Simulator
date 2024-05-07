@@ -19,6 +19,7 @@ function addNewClient() {
     }
 }
 
+
 export default {
     addNewClient,
 }
