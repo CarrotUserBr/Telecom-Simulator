@@ -432,7 +432,7 @@ header {
 }
 
 .modal__early__works__container.modal__active {
-    height: 60%;
+    /* height: 60%; */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -675,4 +675,37 @@ table th {
 
 #tableInventory tr:nth-child(even) td {
     background: var(--bg-secondary-color);
+}
+
+.menu__assist {
+    display: none;
+    padding: 2rem .5rem;
+    /* display: grid; */
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    gap: .5rem;
+}
+
+.card__assist {
+    width: 100%;
+    padding: 1rem .5rem;
+    background: var(--bg-secondary-color);
+    border-radius: 1rem;
+}
+
+.card__assist svg path{
+    fill: var(--icon-color);
+}
+
+.menu__itens__assist {
+    display: none;
+}
+
+.menu__itens__assist#menuAssistItemAssist {
+    padding: 2rem .5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
 }
