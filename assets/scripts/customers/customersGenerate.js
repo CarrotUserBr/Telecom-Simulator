@@ -25,11 +25,11 @@ function generateNewCustomer() {
     const id = randomizeId()
     const gender = randomizeGender()
     const name = randomizeName(gender)
-    const age = randomizeAge()
-    const wealthLevel = ''
-    const satisfaction = ''
+    const age = Math.floor((Math.random() * 52) + 18)
+    const wealthLevel = randomizeWealthLevel()
     const desiredSpeed = ''
-    const difficulty = ''
+    const difficulty = selectDifficulty(wealthLevel)
+    const satisfaction = ''
     const description = ''
 
     return new Customer(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description)
@@ -55,7 +55,7 @@ function randomizeName(gender) {
     const listLastNames = customersInfos.lastNames
     let randomNumber = Math.random()
     let name = ''
-    const isDoubleNames = (randomNumber > 0.5 ? true : false)
+    const isDoubleNames = (randomNumber > 0.75 ? true : false)
     if (isDoubleNames) {
         for (let i = 1 ; i <= 2; i++) {
             randomNumber = Math.floor(Math.random() * listFirstNames.length)
@@ -75,9 +75,39 @@ function randomizeName(gender) {
     return name
 }
 
-function randomizeAge() {
-    let idade = Math.floor((Math.random() * 52) + 18)
-    return idade
+function randomizeWealthLevel() {
+    let wealthLevel = ''
+    const randomNumber = Math.random()
+    if (randomNumber <= 0.02) {
+        wealthLevel = 'F'
+    } else if (randomNumber > 0.02 && randomNumber <= 0.1) {
+        wealthLevel = 'D'
+    } else if (randomNumber > 0.1 && randomNumber <= 0.4) {
+        wealthLevel = 'C'
+    } else if (randomNumber > 0.4 && randomNumber <= 0.7) {
+        wealthLevel = 'B'
+    } else if (randomNumber > 0.7 && randomNumber <= 0.9) {
+        wealthLevel = 'A'
+    } else if (randomNumber > 0.9 && randomNumber <= 1) {
+        wealthLevel = 'A+'
+    }
+
+    return wealthLevel
+}
+
+function selectDifficulty(wealthLevel) {
+    let difficulty = ''
+    if (wealthLevel === 'F' || wealthLevel === 'D') {
+        difficulty = 'Low'
+    } else if (wealthLevel === 'C') {
+        difficulty = 'Medium'
+    } else if (wealthLevel === 'B') {
+        difficulty = 'Medium-High'
+    } else if (wealthLevel === 'A' || wealthLevel === 'A+') {
+        difficulty = 'High'
+    }
+
+    return difficulty
 }
 
 const button = document.querySelector('.player__img')
@@ -90,5 +120,5 @@ export default {
     randomizeId,
     randomizeGender,
     randomizeName,
-    randomizeAge,
+    randomizeWealthLevel,
 }

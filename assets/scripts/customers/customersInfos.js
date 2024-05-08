@@ -28,9 +28,80 @@ const lastNames = [
     "Moreira", "Sales", "Farias", "Valente", "Silveira", "Paes", "Serra", "Correa", "Santana", "Vargas"
 ]
 
-const descriptions = [
-    
-]
+const descriptions = {
+    descriptionsAPlus: [
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+    ],
+    descriptionsA: [
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+    ],
+    descriptionsB: [
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+    ],
+    descriptionsC: [
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+    ],
+    descriptionsD: [
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+    ],
+    descriptionsF: [
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+        ``,
+    ],
+}
 
 export default {
     firstNamesMale,
