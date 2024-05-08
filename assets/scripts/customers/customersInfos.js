@@ -31,3 +31,10 @@ const lastNames = [
 const descriptions = [
     
 ]
+
+export default {
+    firstNamesMale,
+    firstNamesFemale,
+    lastNames,
+    descriptions,
+}
