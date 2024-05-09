@@ -741,3 +741,23 @@ table th {
     align-items: center;
     gap: .5rem;
 }
+
+#menuAssistListAssist {
+    display: table;
+    background: var(--bg-secondary-color);
+}
+
+.list__assist__name__customer__item {
+    border: 1px solid var(--bg-primary-color);
+    background: var(--bg-primary-color);    
+}
+
+.list__assist__info__customer__head th{
+    border: 1px solid var(--border-primary-color);
+    background: var(--bg-secondary-color);
+}
+
+.list__assist__info__customer__body td {
+    border: 1px solid var(--border-primary-color);
+    background: var(--bg-terciary-color);
+}
