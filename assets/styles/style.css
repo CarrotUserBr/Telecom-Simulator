@@ -208,20 +208,60 @@ header {
 .section__manager__interprise {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
 
 .interprise__name__box {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border: var(--border-primary-color) 1px solid;
     box-shadow: var(--drop-shadow-effect);
     padding: .5rem;
-    background: var(--bg-primary-color);
+    background: var(--bg-terciary-color);
+}
+
+.interprise__reputation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--border-primary-color);
+}
+
+.interprise__reputation__title__container{
+    padding: .125rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.interprise__reputation__points__container, .panel__item__stats {
+    display: flex;
+    border-top: 1px solid var(--border-primary-color);
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, .1);
+}
+
+.interprise__reputation__points__container {
+    padding: 0 .5rem;
+}
+
+.interprise__reputation i {
+    color: #800080;
+    font-size: 1.25rem;
+    border-right: var();
+}
+
+.interprise__reputation__points__container p{
+    width: 100%;
 }
 
 .client__database {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -244,14 +284,6 @@ header {
     text-align: center;
 }
 
-.panel__item__stats {
-    display: flex;
-    border-top: 1px solid var(--border-primary-color);
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0, 0, 0, .1);
-}
 
 .panel__item__stats p {
     padding: 0 .5rem;
