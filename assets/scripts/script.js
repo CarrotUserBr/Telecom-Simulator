@@ -164,6 +164,8 @@ function checkAndCloseModal() {
     if (lets.lastModalOpened !== '') {
         if (lets.lastModalOpened === 'workInstall') {
             modalInstallFunctions.closeModalInstall(state) 
+        } else if (lets.lastModalOpened === 'workAssist') {
+            modalAssistFunctions.closeModalAndResetItens()
         } else {
             const modalOpened = document.getElementById('modal' + lets.lastModalOpened.substring(4))
             modalOpened.classList.remove('modal__active')
