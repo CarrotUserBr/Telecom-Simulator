@@ -86,6 +86,7 @@ const lets = {
     lastItemShopInTechActive: '',
     totalPriceInShopTech: '',
     lastModalOpened: '',
+    isHaveModalEarlyWorksOpened: false
 }
 
 // Nav Menu Functions
@@ -143,15 +144,18 @@ function accordionWorkMissions(element) {
 }
 
 function openModalEarlyWorks(element) {
-    const elementActiveId = element.id
-    lets.lastModalOpened = elementActiveId
-    const modalActive = 'modal' + elementActiveId.substring(4)
-    const modalElement = document.getElementById(modalActive)
-    modalElement.classList.add('modal__active')
-    closeModalEarlyWorks(modalElement, elementActiveId)
-
-    if (modalActive === 'modalAssist') {
-        modalAssistFunctions.openMenuItem()
+    if (!lets.isHaveModalEarlyWorksOpened) {
+        lets.isHaveModalEarlyWorksOpened = true
+        const elementActiveId = element.id
+        lets.lastModalOpened = elementActiveId
+        const modalActive = 'modal' + elementActiveId.substring(4)
+        const modalElement = document.getElementById(modalActive)
+        modalElement.classList.add('modal__active')
+        closeModalEarlyWorks(modalElement, elementActiveId)
+        
+        if (modalActive === 'modalAssist') {
+            modalAssistFunctions.openMenuItem()
+        }
     }
 }
 
@@ -161,6 +165,7 @@ function closeModalEarlyWorks(modalElement, elementActiveId) {
 }
 
 function checkAndCloseModal() {
+    lets.isHaveModalEarlyWorksOpened = false
     if (lets.lastModalOpened !== '') {
         if (lets.lastModalOpened === 'workInstall') {
             modalInstallFunctions.closeModalInstall(state) 
