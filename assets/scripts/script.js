@@ -1,6 +1,6 @@
 import modalInstallFunctions from "./sectionWorks/modalInstallFunctions.js"
+import modalAssistFunctions from "./sectionWorks/modalAssistFunctions.js"
 import sectionShopFunctions from "./sectionTech/sectionShopFunctions.js"
-import sectionInventoryFunctions from "./sectionTech/sectionInventoryFunctions.js"
 
 const state = {
     elements: {
@@ -148,8 +148,11 @@ function openModalEarlyWorks(element) {
     const modalActive = 'modal' + elementActiveId.substring(4)
     const modalElement = document.getElementById(modalActive)
     modalElement.classList.add('modal__active')
-    // sectionInventoryFunctions.sendInventoryListForModalInstallInWork()
     closeModalEarlyWorks(modalElement, elementActiveId)
+
+    if (modalActive === 'modalAssist') {
+        modalAssistFunctions.openMenuItem()
+    }
 }
 
 function closeModalEarlyWorks(modalElement, elementActiveId) {
@@ -162,7 +165,8 @@ function checkAndCloseModal() {
         if (lets.lastModalOpened === 'workInstall') {
             modalInstallFunctions.closeModalInstall(state) 
         } else {
-            modalElement.classList.remove('modal__active')
+            const modalOpened = document.getElementById('modal' + lets.lastModalOpened.substring(4))
+            modalOpened.classList.remove('modal__active')
         }
     }
 }

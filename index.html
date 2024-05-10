@@ -607,8 +607,11 @@
             <div class="minigame__for__install" id="installMiniGame">
             </div>
             </div>
-        <div class="modal__early__works__container modal__active" id="modalAssist">
-            <i class="bi bi-x-circle close__modal__button"></i>
+        <div class="modal__early__works__container" id="modalAssist">
+            <div class="buttons__modal__early__works">
+                <i class="bi bi-x-circle close__modal__button"></i>
+                <i class="bi bi-arrow-left-circle back__modal__button"></i>
+            </div>
             <div class="menu__assist">
                 <div class="card__assist" id="assistCardInstall">
                     <svg width="68" height="64" viewBox="0 0 68 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -661,14 +664,14 @@
                 <p>Selecione um cliente para atender:</p>
                 <table id="menuAssistListAssist">
                     <tbody>
-                        <tr class="list__assist__name__customer">
+                        <tr class="list__assist__name__customer list__assist__item-1">
                             <th class="list__assist__name__customer__item" colspan="2">Viviane Pereira Souza</th>
                         </tr>
-                        <tr class="list__assist__info__customer__head">
+                        <tr class="list__assist__info__customer__head list__assist__item__info-1">
                             <th class="list__assist__id__customer__head">Identidade:</th>
                             <th class="list__assist__type__service__head">Tipo de serviço:</th>
                         </tr>
-                        <tr class="list__assist__info__customer__body">
+                        <tr class="list__assist__info__customer__body list__assist__item__info-1">
                             <td class="list__assist__id__customer__body">774246415</td>
                             <td class="list__assist__type__service__body">Instalação</td>
                         </tr>
@@ -694,6 +697,7 @@
     
     <!-- Section Work -->
         <script src="./assets/scripts/sectionWorks/modalInstallFunctions.js" type="module"></script>
+        <script src="./assets/scripts/sectionWorks/modalAssistFunctions.js" type="module"></script>
 
     <!-- Customers Scripts -->
         <script src="./assets/scripts/customers/customersGenerate.js" type="module"></script>

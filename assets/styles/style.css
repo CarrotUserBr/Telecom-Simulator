@@ -481,7 +481,7 @@ header {
     width: 90%;
 }
 
-.close__modal__button {
+.close__modal__button, .back__modal__button {
     font-size: 1.5rem;
     color: var(--bg-primary-color);
     align-self: flex-end;
@@ -710,9 +710,9 @@ table th {
 }
 
 .menu__assist {
-    display: none;
+    /* display: none; */
     padding: 2rem .5rem;
-    /* display: grid; */
+    display: grid;
     grid-template-columns: 1fr 1fr;
     text-align: center;
     gap: .5rem;
@@ -731,12 +731,9 @@ table th {
 
 .menu__itens__assist {
     display: none;
-}
-
-.menu__itens__assist#menuAssistItemAssist {
     padding: 2rem .5rem;
     text-align: center;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     gap: .5rem;
@@ -760,4 +757,19 @@ table th {
 .list__assist__info__customer__body td {
     border: 1px solid var(--border-primary-color);
     background: var(--bg-terciary-color);
+}
+
+.list__assist__info__customer__head,
+.list__assist__info__customer__body {
+    display: none;
+}
+
+.buttons__modal__early__works {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.back__modal__button {
+    display: none;
 }
