@@ -18,7 +18,6 @@ class Customer {
 
 function addListCustomer() {
     listCustomer.push(generateNewCustomer())
-    console.log(listCustomer[listCustomer.length - 1])
 }
 
 function generateNewCustomer() {
@@ -110,12 +109,10 @@ function selectDifficulty(wealthLevel) {
     return difficulty
 }
 
-const button = document.querySelector('.player__img')
-button.addEventListener('click', addListCustomer)
-
 export default {
     listCustomer,
     Customer,
+    addListCustomer,
     generateNewCustomer,
     randomizeId,
     randomizeGender,
