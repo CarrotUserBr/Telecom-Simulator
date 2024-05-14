@@ -109,6 +109,15 @@ function selectDifficulty(wealthLevel) {
     return difficulty
 }
 
+function findCustomerById(id) {
+    for (const element of listCustomer){
+        if (element.id === id) {
+            return element
+        }
+    }
+    return null
+}
+
 export default {
     listCustomer,
     Customer,
@@ -118,4 +127,5 @@ export default {
     randomizeGender,
     randomizeName,
     randomizeWealthLevel,
+    findCustomerById,
 }

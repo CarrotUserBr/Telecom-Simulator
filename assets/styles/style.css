@@ -464,7 +464,6 @@ header {
 }
 
 .modal__early__works__container.modal__active {
-    /* height: 60%; */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -772,4 +771,38 @@ table th {
 
 .back__modal__button {
     display: none;
+}
+
+#assistCustomerForInstall {
+    /* display: flex; */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    background: var(--bg-terciary-color);
+    padding: 1rem .5rem;
+    border-radius: 1rem;
+}
+
+#assistCustomerForInstall select,
+#assistCustomerForInstall input {
+    width: 100%;
+    text-align: center;
+    background: var(--bg-secondary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 1rem;
+    padding: .25rem;
+}
+
+#sendProposalForCustomer {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background: var(--bg-primary-color);
+    color: var(--title-color);
+    border: 1px solid var(--border-secondary-color);
+    border-radius: 1.5rem;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+    font-weight: 600;
 }
