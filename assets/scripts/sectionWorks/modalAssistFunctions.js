@@ -3,6 +3,9 @@ import script from "../script.js";
 
 
 const assistList = []
+const installList = []
+const repairList = []
+const collectList = []
 
 function openMenuItem() {
     const itensCard = document.querySelectorAll('.card__assist')
@@ -112,27 +115,29 @@ function createItemInTheTableAssist(newCustomer) {
 }
 
 function activeAcorddionForTable() {
-    const table = document.getElementById('menuAssistListAssist')
-    if (!table.dataset.listenerAdded) {
-        table.addEventListener('click', (event) => {
-            const target = event.target
-            
-            if (target.classList.contains('list__assist__name__customer__item')) {
-                document.querySelectorAll('.list__assist__info__customer__head, .list__assist__info__customer__body').forEach(element => element.style.display = 'none')
-                const idItemList = target.parentElement.classList[1].split('-')[1]
-                const itensToOpen = Array.from(document.querySelectorAll(`.list__assist__item__info-${idItemList}`))
-                itensToOpen.forEach(element => {
-                    element.style.display = (element.style.display === 'none' || element.style.display === '') ? 'table-row' : 'none'
-                })
-            }
-            
-            if (target.classList.contains('list__assist__button__assist__body') || target.classList.contains('bi-headset')) {
-                const customerId = (target.classList.contains('bi-headset')? target.parentElement.classList[1].split('-')[1] : target.classList[1].split('-')[1])
-                assistCustomer(customerId)
-            }
-        })
-        table.dataset.listenerAdded = true
-    }
+    const tables = Array.from(document.querySelectorAll('.table__menu__assist'))
+    tables.forEach(table => {  
+        if (!table.dataset.listenerAdded) {
+            table.addEventListener('click', (event) => {
+                const target = event.target
+                
+                if (target.classList.contains('list__assist__name__customer__item')) {
+                    document.querySelectorAll('.list__assist__info__customer__head, .list__assist__info__customer__body').forEach(element => element.style.display = 'none')
+                    const idItemList = target.parentElement.classList[1].split('-')[1]
+                    const itensToOpen = Array.from(document.querySelectorAll(`.list__assist__item__info-${idItemList}`))
+                    itensToOpen.forEach(element => {
+                        element.style.display = (element.style.display === 'none' || element.style.display === '') ? 'table-row' : 'none'
+                    })
+                }
+                
+                if (target.classList.contains('list__assist__button__assist__body') || target.classList.contains('bi-headset')) {
+                    const customerId = (target.classList.contains('bi-headset')? target.parentElement.classList[1].split('-')[1] : target.classList[1].split('-')[1])
+                    assistCustomer(customerId)
+                }
+            })
+            table.dataset.listenerAdded = true
+        }
+    })
 }
 
 function closeAssistCustomerMenu() {
@@ -177,12 +182,83 @@ function verifyConditionsForCustomer(customer) {
         console.log('Instalação agendada!')
     }
     
+    sendToListInstall(customer)
     closeModalAndResetItens()
     script.lets.isHaveModalEarlyWorksOpened = false    
 }
 
+function sendToListInstall(customer) {
+    assistList.splice(assistList.indexOf(customer.name), 1)
+    const listAssistName = document.querySelector(`.list__assist__item-${customer.id}`)
+    const listAssistInfo = Array.from(document.querySelectorAll(`.list__assist__item__info-${customer.id}`))
+    listAssistName.remove()
+    listAssistInfo.forEach(element => element.remove())
+    printNumberOfAssistsInAlert()
+
+    installList.push(customer)
+    createItemInTheTableInstall(customer)
+}
+
+function createItemInTheTableInstall(newCustomer) {
+    const table = document.getElementById('menuAssistListInstall')
+    
+    // Create Elements
+    const trHeadName = document.createElement('tr')
+    const thHeadName = document.createElement('th')
+    const trHeadInfo = document.createElement('tr')
+    const thHeadInfoType = document.createElement('th')
+    const thHeadInfoAssist = document.createElement('th')
+    const trBodyInfo = document.createElement('tr')
+    const tdBodyInfoType = document.createElement('td')
+    const tdBodyInfoAssist = document.createElement('td')
+    const icon = document.createElement('i')
+    
+    // Add attibute
+    trHeadName.classList.add('list__assist__name__customer', `list__assist__item-${newCustomer.id}`)
+    thHeadName.classList.add('list__assist__name__customer__item')
+    thHeadName.colSpan = '3'
+    trHeadInfo.classList.add('list__assist__info__customer__head', `list__assist__item__info-${newCustomer.id}`)
+    thHeadInfoType.classList.add('list__assist__type__service__head')
+    thHeadInfoAssist.classList.add('list__assist__button__install__head')
+    trBodyInfo.classList.add('list__assist__info__customer__body', `list__assist__item__info-${newCustomer.id}`)
+    tdBodyInfoType.classList.add('list__assist__type__service__body')
+    tdBodyInfoAssist.classList.add('list__assist__button__install__body', `list__assist__button-${newCustomer.id}`)
+    icon.classList.add('bi', 'bi-house-up-fill')
+    
+    // Add content
+    thHeadName.textContent = `${newCustomer.name}`
+    thHeadInfoType.textContent = 'Tempo restante:'
+    thHeadInfoAssist.textContent = 'Instalar'
+    tdBodyInfoType.textContent = newCustomer.timeLeftForInstallation
+    
+    // Append Childs
+    table.appendChild(trHeadName)
+    table.appendChild(trHeadInfo)
+    table.appendChild(trBodyInfo)
+    trHeadName.appendChild(thHeadName)
+    trHeadInfo.appendChild(thHeadInfoType)
+    trHeadInfo.appendChild(thHeadInfoAssist)
+    trBodyInfo.appendChild(tdBodyInfoType)
+    trBodyInfo.appendChild(tdBodyInfoAssist)
+    tdBodyInfoAssist.appendChild(icon)
+}
+
+function printNumberOfAssistsInAlert() {
+    const alertAssists = document.getElementById('workAssistAlert')
+    if (assistList.length < 10) {
+        alertAssists.textContent = `0${assistList.length}`
+    } else if (assistList.length > 99) {
+        alertAssists.textContent = '99+'
+    } else {
+        alertAssists.textContent = assistList.length
+    }
+}
+
 export default {
     assistList,
+    installList,
+    repairList,
+    collectList,
     openMenuItem,
     backToMenu,
     closeModalAndResetItens,
@@ -191,4 +267,7 @@ export default {
     activeAcorddionForTable,
     assistCustomer,
     closeAssistCustomerMenu,
+    sendToListInstall,
+    createItemInTheTableInstall,
+    printNumberOfAssistsInAlert,
 }

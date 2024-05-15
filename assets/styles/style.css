@@ -464,6 +464,8 @@ header {
 }
 
 .modal__early__works__container.modal__active {
+    max-height: 80%;
+    overflow: hidden;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -729,6 +731,7 @@ table th {
 }
 
 .menu__itens__assist {
+    height: 100%;
     display: none;
     padding: 2rem .5rem;
     text-align: center;
@@ -736,30 +739,49 @@ table th {
     flex-direction: column;
     align-items: center;
     gap: .5rem;
+    overflow: hidden;
 }
 
-#menuAssistListAssist {
-    display: table;
+.table__menu__assist__container {
+    width: 100%;
+    height: 60%;
+    overflow: scroll;
+    padding: .5rem;
     background: var(--bg-secondary-color);
+    border: 1px solid var(--border-primary-color);
+    border-radius: 1rem;
+    scrollbar-width: none;
 }
 
-.list__assist__name__customer__item {
+.table__menu__assist {
+    display: table;
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.list__assist__name__customer__item,
+.list__install__name__customer__item {
     border: 1px solid var(--border-primary-color);
     background: var(--bg-primary-color);    
 }
 
-.list__assist__info__customer__head th{
+.list__assist__info__customer__head th,
+.list__install__info__customer__head th {
     border: 1px solid var(--border-primary-color);
     background: var(--bg-secondary-color);
 }
 
-.list__assist__info__customer__body td {
+.list__assist__info__customer__body td,
+.list__install__info__customer__body td {
     border: 1px solid var(--border-primary-color);
     background: var(--bg-terciary-color);
 }
 
 .list__assist__info__customer__head,
-.list__assist__info__customer__body {
+.list__assist__info__customer__body,
+.list__install__info__customer__head,
+.list__install__info__customer__body {
     display: none;
 }
 
