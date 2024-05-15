@@ -1,4 +1,6 @@
 import customersGenerate from "../customers/customersGenerate.js";
+import script from "../script.js";
+
 
 const assistList = []
 
@@ -133,6 +135,11 @@ function activeAcorddionForTable() {
     }
 }
 
+function closeAssistCustomerMenu() {
+    const assistCustomerForInstall = document.getElementById('assistCustomerForInstall')
+    assistCustomerForInstall.style.display = 'none'
+}
+
 function assistCustomer(customerId) {
     const menuItens = Array.from(document.querySelectorAll('.menu__itens__assist'))
     const assistCustomer = document.getElementById('assistCustomerForInstall')
@@ -142,16 +149,36 @@ function assistCustomer(customerId) {
     const customer = customersGenerate.findCustomerById(customerId)
 
     const nameCustomer = customer.name
-    const speedDesired = customer.desiredSpeed
-    const plans = ''
-    const valueForInstallation = ''
 
     document.getElementById('assistForInstallNameCustomer').textContent = nameCustomer
+
+    const buttonSendProposal = document.getElementById('sendProposalForCustomer')
+    if (!buttonSendProposal.dataset.listenerAdded) {
+        buttonSendProposal.addEventListener('click', () => {
+            verifyConditionsForCustomer(customer)
+            buttonSendProposal.dataset.listenerAdded = true
+        })
+    }
 }
 
-function closeAssistCustomerMenu() {
-    const assistCustomerForInstall = document.getElementById('assistCustomerForInstall')
-    assistCustomerForInstall.style.display = 'none'
+function verifyConditionsForCustomer(customer) {
+    const valueForInstallation = document.getElementById('assistForInstallInputInstallationValue').value
+    const plans = document.getElementById('assistForInstallPlans').value
+    const plansSpeed = plans.split('Mb /')[0]
+    const plansPrice = plans.split('/ $')[1]
+
+    if (valueForInstallation > customer.valueMaxInstall) {
+        console.log('Valor da instalação muito alto!')
+    } else if (plansSpeed < customer.desiredSpeed) {
+        console.log('Velocidade abaixo do esperado')
+    } else if (plansPrice > customer.valueMaxMensality) {
+        console.log('Preço da mensalidade muito caro')
+    } else {
+        console.log('Instalação agendada!')
+    }
+    
+    closeModalAndResetItens()
+    script.lets.isHaveModalEarlyWorksOpened = false    
 }
 
 export default {

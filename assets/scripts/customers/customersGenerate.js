@@ -3,7 +3,7 @@ import customersInfos from "./customersInfos.js";
 let listCustomer = []
 
 class Customer {
-    constructor(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description) {
+    constructor(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality) {
         this.id = id;
         this.gender = gender;
         this.name = name;
@@ -13,6 +13,8 @@ class Customer {
         this.desiredSpeed = desiredSpeed;
         this.difficulty = difficulty;
         this.description = description;
+        this.valueMaxInstall = valueMaxInstall;
+        this.valueMaxMensality = valueMaxMensality;
     }
 }
 
@@ -30,8 +32,10 @@ function generateNewCustomer() {
     const difficulty = selectDifficulty(wealthLevel)
     const satisfaction = ''
     const description = ''
+    const valueMaxInstall = defineValueOfInstallation(wealthLevel)
+    const valueMaxMensality = ''
 
-    return new Customer(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description)
+    return new Customer(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality)
 }
 
 function randomizeId() {
@@ -109,6 +113,24 @@ function selectDifficulty(wealthLevel) {
     return difficulty
 }
 
+function defineValueOfInstallation(wealthLevel) {
+    let valueMaxInstall = ''
+    if (wealthLevel === 'A+') {
+        valueMaxInstall = Math.floor(1000 - (Math.random() * 100))
+    } else if (wealthLevel === 'A') {
+        valueMaxInstall = Math.floor(600 - (Math.random() * 100))
+    } else if (wealthLevel === 'B') {
+        valueMaxInstall = Math.floor(400 - (Math.random() * 100))
+    } else if (wealthLevel === 'C') {
+        valueMaxInstall = Math.floor(300 - (Math.random() * 100))
+    } else if (wealthLevel === 'D') {
+        valueMaxInstall = Math.floor(250 - (Math.random() * 50))
+    } else if (wealthLevel === 'F') {
+        valueMaxInstall = Math.floor(200 - (Math.random() * 50))
+    }
+    return valueMaxInstall
+}
+
 function findCustomerById(id) {
     for (const element of listCustomer){
         if (element.id === id) {
@@ -127,5 +149,7 @@ export default {
     randomizeGender,
     randomizeName,
     randomizeWealthLevel,
+    selectDifficulty,
+    defineValueOfInstallation,
     findCustomerById,
 }

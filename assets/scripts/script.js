@@ -159,7 +159,7 @@ function openModalEarlyWorks(element) {
     }
 }
 
-function closeModalEarlyWorks(modalElement, elementActiveId) {
+function closeModalEarlyWorks(modalElement) {
     const closeButton = modalElement.querySelector('.close__modal__button')
     closeButton.addEventListener('click', checkAndCloseModal)
 }

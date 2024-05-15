@@ -785,7 +785,7 @@ table th {
 }
 
 #assistCustomerForInstall select,
-#assistCustomerForInstall input {
+#assistForInstallValueOfInstallContainer {
     width: 100%;
     text-align: center;
     background: var(--bg-secondary-color);
@@ -793,6 +793,18 @@ table th {
     border: none;
     border-radius: 1rem;
     padding: .25rem;
+}
+
+#assistForInstallValueOfInstallContainer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+#assistCustomerForInstall input {
+    background: none;
+    border: none;
+    color: var(--text-color);
 }
 
 #sendProposalForCustomer {

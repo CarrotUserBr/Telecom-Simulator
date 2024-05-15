@@ -671,12 +671,15 @@
                     <p id="assistForInstallSpeedDesired">Entre 1 e 10 mb de download</p>
                     <h4>Planos para oferecer:</h4>
                     <select id="assistForInstallPlans">
-                        <option value="3mb">3Mb</option>
-                        <option value="5mb">5Mb</option>
-                        <option value="7mb">7Mb</option>
+                        <option value="3mb">3Mb / $75</option>
+                        <option value="5mb">5Mb / $95</option>
+                        <option value="7mb">7Mb / $105</option>
                     </select>
                     <h4>Valor da instalação:</h4>
-                    <input type="text" placeholder="Digite um valor: (recomendado: $100)" id="assistForInstallInputInstallationValue">
+                    <div id="assistForInstallValueOfInstallContainer">
+                        <h4>$</h4>
+                        <input type="number" placeholder="Digite um valor:" id="assistForInstallInputInstallationValue">
+                    </div>
                     <button id="sendProposalForCustomer">Enviar proposta</button>
                 </div>
         </div>
