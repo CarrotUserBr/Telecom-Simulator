@@ -143,18 +143,21 @@ function accordionWorkMissions(element) {
     }
 }
 
-function openModalEarlyWorks(element) {
+function openModalEarlyWorks(element){
     if (!lets.isHaveModalEarlyWorksOpened) {
-        lets.isHaveModalEarlyWorksOpened = true
-        const elementActiveId = element.id
-        lets.lastModalOpened = elementActiveId
-        const modalActive = 'modal' + elementActiveId.substring(4)
-        const modalElement = document.getElementById(modalActive)
-        modalElement.classList.add('modal__active')
-        closeModalEarlyWorks(modalElement, elementActiveId)
-        
-        if (modalActive === 'modalAssist') {
-            modalAssistFunctions.openMenuItem()
+        const type = element.id.substring(4)
+        const alert = document.getElementById(`work${type}Alert`)
+        const modal = document.getElementById(`modal${type}`)
+        if (type !== 'Promote' && type !== 'Employees'){
+            if (alert.textContent != 0) {
+                lets.isHaveModalEarlyWorksOpened = true
+                modal.classList.add('modal__active')
+                lets.lastModalOpened = `work${type}`
+                closeModalEarlyWorks(modal)
+                if (type === 'Assist'){
+                    modalAssistFunctions.openMenuItem()
+                }
+            }
         }
     }
 }
@@ -173,6 +176,7 @@ function checkAndCloseModal() {
             modalAssistFunctions.closeModalAndResetItens()
         } else {
             const modalOpened = document.getElementById('modal' + lets.lastModalOpened.substring(4))
+            console.log(modalOpened)
             modalOpened.classList.remove('modal__active')
         }
     }
@@ -231,4 +235,5 @@ for (const work in state.elements.sectionWorks.earlyWorks) {
 export default {
     state,
     lets,
+    closeModalEarlyWorks,
 }

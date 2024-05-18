@@ -1,62 +1,48 @@
 import customersGenerate from "../customers/customersGenerate.js";
 import script from "../script.js";
-
+import modalInstallFunctions from "./modalInstallFunctions.js";
 
 const assistList = []
-const installList = []
 const repairList = []
 const collectList = []
 
 function openMenuItem() {
-    const itensCard = document.querySelectorAll('.card__assist')
-    const menuHome = document.querySelector('.menu__assist')
-    const buttonBack = document.querySelector('.back__modal__button')
-    
-    for (const key in itensCard) {
-        if (Object.hasOwnProperty.call(itensCard, key)) {
-            const element = itensCard[key];
-            element.addEventListener('click', () => {
-                const typeMenuItem = element.id.substring(10)
-                const menuItemActive = document.getElementById(`menuAssistItem${typeMenuItem}`)
-                
-                menuHome.style.display = 'none'
-                menuItemActive.style.display = 'flex'
-                buttonBack.style.display = 'block'
-                buttonBack.addEventListener('click', () => backToMenu(menuItemActive, buttonBack, menuHome))
-            })
-        }
-    }
+    const assistTable = document.getElementById('menuAssistItemAssist')
+    assistTable.style.display = 'flex'
     activeAcorddionForTable()
 }
 
-function backToMenu(menuItemActive, buttonBack, menuHome) {
-    menuItemActive.style.display = 'none'
+function backToMenu() {
+    const assistMenu = document.getElementById('assistCustomerForInstall')
+    const buttonBack = document.querySelector('.back__modal__button')
+    const assistTable = document.getElementById('menuAssistItemAssist')
+    assistMenu.style.display = 'none'
     buttonBack.style.display = 'none'
-    menuHome.style.display = 'grid'
+    assistTable.style.display = 'flex'
     
     document.querySelectorAll('.list__assist__info__customer__head, .list__assist__info__customer__body').forEach(element => element.style.display = 'none')
-    closeAssistCustomerMenu()
 }
 
 function closeModalAndResetItens() {
     const modal = document.getElementById('modalAssist')
-    const menuItens = Array.from(document.querySelectorAll('.menu__itens__assist'))
-    const menuHome = document.querySelector('.menu__assist')
     const buttonBack = document.querySelector('.back__modal__button')
     
     modal.classList.remove('modal__active')
-    menuItens.forEach(element => element.style.display = 'none')
-    menuHome.style.display = 'grid'
     buttonBack.style.display = 'none'
     
-    
+    const selectPlans = document.getElementById('assistForInstallPlans')
+    const inputInstallationValue = document.getElementById('assistForInstallInputInstallationValue')
+    selectPlans.value = ''
+    inputInstallationValue.value = '' 
+ 
     const listAssistInfoCustomerHead = Array.from(document.querySelectorAll('.list__assist__info__customer__head')) 
     const listAssistInfoCustomerBody = Array.from(document.querySelectorAll('.list__assist__info__customer__body'))
     
     listAssistInfoCustomerHead.forEach(element => element.style.display = 'none')
     listAssistInfoCustomerBody.forEach(element => element.style.display = 'none')
     
-    closeAssistCustomerMenu()
+    const assistCustomerForInstall = document.getElementById('assistCustomerForInstall')
+    assistCustomerForInstall.style.display = 'none'
 }
 
 function generateNewAssistInstallItem() {
@@ -140,29 +126,36 @@ function activeAcorddionForTable() {
     })
 }
 
-function closeAssistCustomerMenu() {
-    const assistCustomerForInstall = document.getElementById('assistCustomerForInstall')
-    assistCustomerForInstall.style.display = 'none'
-}
-
 function assistCustomer(customerId) {
-    const menuItens = Array.from(document.querySelectorAll('.menu__itens__assist'))
+    const assistTable = document.getElementById('menuAssistItemAssist')
     const assistCustomer = document.getElementById('assistCustomerForInstall')
-    menuItens.forEach(element => element.style.display = 'none')
+    const buttonBack = document.querySelector('.back__modal__button')
+    buttonBack.style.display = 'block'
+    assistTable.style.display = 'none'
     assistCustomer.style.display = 'flex'
-
+    
+    if (!buttonBack.dataset.listenerAdded) {
+        buttonBack.addEventListener('click', backToMenu)
+        buttonBack.dataset.listenerAdded = true
+    }
     const customer = customersGenerate.findCustomerById(customerId)
-
     const nameCustomer = customer.name
 
     document.getElementById('assistForInstallNameCustomer').textContent = nameCustomer
 
     const buttonSendProposal = document.getElementById('sendProposalForCustomer')
-    if (!buttonSendProposal.dataset.listenerAdded) {
-        buttonSendProposal.addEventListener('click', () => {
-            verifyConditionsForCustomer(customer)
-            buttonSendProposal.dataset.listenerAdded = true
-        })
+
+    const newButtonSendProposal = buttonSendProposal.cloneNode(true);
+    buttonSendProposal.parentNode.replaceChild(newButtonSendProposal, buttonSendProposal);
+
+    newButtonSendProposal.addEventListener('click', () => sendProposal(customer));
+}
+
+function sendProposal(customer) {
+    const valueForInstallation = document.getElementById('assistForInstallInputInstallationValue').value;
+    const plans = document.getElementById('assistForInstallPlans').value;
+    if (valueForInstallation !== '' && plans !== '') {
+        verifyConditionsForCustomer(customer);
     }
 }
 
@@ -180,9 +173,8 @@ function verifyConditionsForCustomer(customer) {
         console.log('Preço da mensalidade muito caro')
     } else {
         console.log('Instalação agendada!')
+        sendToListInstall(customer)
     }
-    
-    sendToListInstall(customer)
     closeModalAndResetItens()
     script.lets.isHaveModalEarlyWorksOpened = false    
 }
@@ -194,53 +186,8 @@ function sendToListInstall(customer) {
     listAssistName.remove()
     listAssistInfo.forEach(element => element.remove())
     printNumberOfAssistsInAlert()
-
-    installList.push(customer)
-    createItemInTheTableInstall(customer)
-}
-
-function createItemInTheTableInstall(newCustomer) {
-    const table = document.getElementById('menuAssistListInstall')
-    
-    // Create Elements
-    const trHeadName = document.createElement('tr')
-    const thHeadName = document.createElement('th')
-    const trHeadInfo = document.createElement('tr')
-    const thHeadInfoType = document.createElement('th')
-    const thHeadInfoAssist = document.createElement('th')
-    const trBodyInfo = document.createElement('tr')
-    const tdBodyInfoType = document.createElement('td')
-    const tdBodyInfoAssist = document.createElement('td')
-    const icon = document.createElement('i')
-    
-    // Add attibute
-    trHeadName.classList.add('list__assist__name__customer', `list__assist__item-${newCustomer.id}`)
-    thHeadName.classList.add('list__assist__name__customer__item')
-    thHeadName.colSpan = '3'
-    trHeadInfo.classList.add('list__assist__info__customer__head', `list__assist__item__info-${newCustomer.id}`)
-    thHeadInfoType.classList.add('list__assist__type__service__head')
-    thHeadInfoAssist.classList.add('list__assist__button__install__head')
-    trBodyInfo.classList.add('list__assist__info__customer__body', `list__assist__item__info-${newCustomer.id}`)
-    tdBodyInfoType.classList.add('list__assist__type__service__body')
-    tdBodyInfoAssist.classList.add('list__assist__button__install__body', `list__assist__button-${newCustomer.id}`)
-    icon.classList.add('bi', 'bi-house-up-fill')
-    
-    // Add content
-    thHeadName.textContent = `${newCustomer.name}`
-    thHeadInfoType.textContent = 'Tempo restante:'
-    thHeadInfoAssist.textContent = 'Instalar'
-    tdBodyInfoType.textContent = newCustomer.timeLeftForInstallation
-    
-    // Append Childs
-    table.appendChild(trHeadName)
-    table.appendChild(trHeadInfo)
-    table.appendChild(trBodyInfo)
-    trHeadName.appendChild(thHeadName)
-    trHeadInfo.appendChild(thHeadInfoType)
-    trHeadInfo.appendChild(thHeadInfoAssist)
-    trBodyInfo.appendChild(tdBodyInfoType)
-    trBodyInfo.appendChild(tdBodyInfoAssist)
-    tdBodyInfoAssist.appendChild(icon)
+    modalInstallFunctions.installList.push(customer)
+    modalInstallFunctions.createItemInTheTableInstall(customer)
 }
 
 function printNumberOfAssistsInAlert() {
@@ -256,7 +203,6 @@ function printNumberOfAssistsInAlert() {
 
 export default {
     assistList,
-    installList,
     repairList,
     collectList,
     openMenuItem,
@@ -266,8 +212,6 @@ export default {
     createItemInTheTableAssist,
     activeAcorddionForTable,
     assistCustomer,
-    closeAssistCustomerMenu,
     sendToListInstall,
-    createItemInTheTableInstall,
     printNumberOfAssistsInAlert,
 }

@@ -497,9 +497,9 @@ header {
 }
 
 .form__for__install {
-    /* display: none; */
+    display: none;
     color: var(--text-color);
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -730,12 +730,12 @@ table th {
     fill: var(--icon-color);
 }
 
-.menu__itens__assist {
+.tables__early__works {
     height: 100%;
-    display: none;
+    /* display: none; */
     padding: 2rem .5rem;
     text-align: center;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: .5rem;

@@ -1,6 +1,9 @@
 import sectionInventoryFunctions from "../sectionTech/sectionInventoryFunctions.js"
 import clients from "../clients.js"
-import sectionShopFunctions from "../sectionTech/sectionShopFunctions.js"
+import script from "../script.js"
+
+const installList = []
+
 
 function revealSelectsInModalInstall(state){
     const selects = state.elements.sectionWorks.modalInstallElements.selects
@@ -138,7 +141,63 @@ function addOptionToSelect(selectId, options){
     })
 }
 
+function createItemInTheTableInstall(newCustomer) {
+    const table = document.getElementById('menuAssistListInstall')
+    
+    // Create Elements
+    const trHeadName = document.createElement('tr')
+    const thHeadName = document.createElement('th')
+    const trHeadInfo = document.createElement('tr')
+    const thHeadInfoType = document.createElement('th')
+    const thHeadInfoAssist = document.createElement('th')
+    const trBodyInfo = document.createElement('tr')
+    const tdBodyInfoType = document.createElement('td')
+    const tdBodyInfoAssist = document.createElement('td')
+    const icon = document.createElement('i')
+    
+    // Add attibute
+    trHeadName.classList.add('list__assist__name__customer', `list__assist__item-${newCustomer.id}`)
+    thHeadName.classList.add('list__assist__name__customer__item')
+    thHeadName.colSpan = '3'
+    trHeadInfo.classList.add('list__assist__info__customer__head', `list__assist__item__info-${newCustomer.id}`)
+    thHeadInfoType.classList.add('list__assist__type__service__head')
+    thHeadInfoAssist.classList.add('list__assist__button__install__head')
+    trBodyInfo.classList.add('list__assist__info__customer__body', `list__assist__item__info-${newCustomer.id}`)
+    tdBodyInfoType.classList.add('list__assist__type__service__body')
+    tdBodyInfoAssist.classList.add('list__assist__button__install__body', `list__assist__button-${newCustomer.id}`)
+    icon.classList.add('bi', 'bi-house-up-fill')
+    
+    // Add content
+    thHeadName.textContent = `${newCustomer.name}`
+    thHeadInfoType.textContent = 'Tempo restante:'
+    thHeadInfoAssist.textContent = 'Instalar'
+    tdBodyInfoType.textContent = newCustomer.timeLeftForInstallation
+    
+    // Append Childs
+    table.appendChild(trHeadName)
+    table.appendChild(trHeadInfo)
+    table.appendChild(trBodyInfo)
+    trHeadName.appendChild(thHeadName)
+    trHeadInfo.appendChild(thHeadInfoType)
+    trHeadInfo.appendChild(thHeadInfoAssist)
+    trBodyInfo.appendChild(tdBodyInfoType)
+    trBodyInfo.appendChild(tdBodyInfoAssist)
+    tdBodyInfoAssist.appendChild(icon)
+    printNumberOfInstallInAlert()
+}
+
+function printNumberOfInstallInAlert() {
+    const alertAssists = document.getElementById('workInstallAlert')
+    if (installList.length < 10) {
+        alertAssists.textContent = `0${installList.length}`
+    } else if (installList.length > 99) {
+        alertAssists.textContent = '99+'
+    } else {
+        alertAssists.textContent = installList.length
+    }
+}
 export default {
+    installList,
     revealSelectsInModalInstall,
     closeModalInstall,
     openPuzzleForInstall,
@@ -147,4 +206,6 @@ export default {
     removeModalMiniGameForInstall,
     deletePuzzleForInstall,
     insertItensOnInventoryInSelectOptionsInModalInstall,
+    createItemInTheTableInstall,
+    printNumberOfInstallInAlert,
 }
