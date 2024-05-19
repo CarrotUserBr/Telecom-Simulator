@@ -1,9 +1,34 @@
 import sectionInventoryFunctions from "../sectionTech/sectionInventoryFunctions.js"
 import clients from "../clients.js"
 import script from "../script.js"
+import customersGenerate from "../customers/customersGenerate.js"
 
 const installList = []
 
+function openInfoOfCustomer(customerId) {
+    const home = document.getElementById('customerListForInstall')
+    const infoInstall = document.querySelector('.infos__install')
+    
+    home.style.display = 'none'
+    infoInstall.style.display = 'flex'
+    
+    const customer = customersGenerate.findCustomerById(customerId)
+    const valueInstallationElement = document.getElementById('valueInstallation')
+    const difficultyInstallationElement = document.getElementById('difficultyInstallation')
+
+    valueInstallationElement.textContent = customer.valueForInstallation
+    difficultyInstallationElement.textContent = customer.difficulty
+    
+    const advancedForFormInstall = document.getElementById('advancedForFormInstall')
+    if (!advancedForFormInstall.dataset.listenerAdded) {
+        advancedForFormInstall.addEventListener('click', () => {
+            infoInstall.style.display = 'none'
+            const formForInstall = document.querySelector('.form__for__install')
+            formForInstall.style.display = 'flex'
+        })
+        advancedForFormInstall.dataset.listenerAdded = true
+    }
+}
 
 function revealSelectsInModalInstall(state){
     const selects = state.elements.sectionWorks.modalInstallElements.selects
@@ -198,6 +223,7 @@ function printNumberOfInstallInAlert() {
 }
 export default {
     installList,
+    openInfoOfCustomer,
     revealSelectsInModalInstall,
     closeModalInstall,
     openPuzzleForInstall,

@@ -493,6 +493,7 @@ header {
     /* display: flex; */
     flex-direction: column;
     justify-content: space-around;
+    text-align: center;
     gap: 1rem;
 }
 
@@ -829,7 +830,7 @@ table th {
     color: var(--text-color);
 }
 
-#sendProposalForCustomer {
+.button__modal {
     margin-top: 2rem;
     padding: 1rem 2rem;
     background: var(--bg-primary-color);

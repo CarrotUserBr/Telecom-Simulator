@@ -101,13 +101,13 @@ function randomizeWealthLevel() {
 function selectDifficulty(wealthLevel) {
     let difficulty = ''
     if (wealthLevel === 'F' || wealthLevel === 'D') {
-        difficulty = 'Low'
+        difficulty = 'Fácil'
     } else if (wealthLevel === 'C') {
-        difficulty = 'Medium'
+        difficulty = 'Média'
     } else if (wealthLevel === 'B') {
-        difficulty = 'Medium-High'
+        difficulty = 'Media-Alta'
     } else if (wealthLevel === 'A' || wealthLevel === 'A+') {
-        difficulty = 'High'
+        difficulty = 'Difícil'
     }
 
     return difficulty

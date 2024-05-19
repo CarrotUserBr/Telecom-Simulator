@@ -89,8 +89,9 @@ function updateItensList(inventoryListInTable, dates) {
 
 function removeResourcesForInstall(){
     const listItensToRemove = []
-    const selectsInModalInstall = Array.from(document.querySelectorAll('select'))
-    selectsInModalInstall.splice(0,1)
+    const formForInstall = document.querySelector('.form__for__install')
+    const selectsInModalInstall = Array.from(formForInstall.querySelectorAll('select'))
+    selectsInModalInstall.slice(0, 1)
     selectsInModalInstall.forEach(element => {
         const selectedOption = element.options[element.selectedIndex]
         listItensToRemove.push(selectedOption)

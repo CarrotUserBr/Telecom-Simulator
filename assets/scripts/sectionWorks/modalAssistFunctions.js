@@ -116,9 +116,16 @@ function activeAcorddionForTable() {
                     })
                 }
                 
-                if (target.classList.contains('list__assist__button__assist__body') || target.classList.contains('bi-headset')) {
-                    const customerId = (target.classList.contains('bi-headset')? target.parentElement.classList[1].split('-')[1] : target.classList[1].split('-')[1])
-                    assistCustomer(customerId)
+                if(table.id === 'menuAssistListAssist'){
+                    if (target.classList.contains('list__assist__button__assist__body') || target.classList.contains('bi-headset')) {
+                        const customerId = (target.classList.contains('bi-headset')? target.parentElement.classList[1].split('-')[1] : target.classList[1].split('-')[1])
+                        assistCustomer(customerId)
+                    }
+                } else if (table.id === 'menuAssistListInstall') {
+                    if (target.classList.contains('list__assist__button__assist__body') || target.classList.contains('bi-house-up-fill')) {
+                        const customerId = (target.classList.contains('bi-house-up-fill')? target.parentElement.classList[1].split('-')[1] : target.classList[1].split('-')[1])
+                        modalInstallFunctions.openInfoOfCustomer(customerId)
+                    }
                 }
             })
             table.dataset.listenerAdded = true
@@ -173,6 +180,7 @@ function verifyConditionsForCustomer(customer) {
         console.log('Preço da mensalidade muito caro')
     } else {
         console.log('Instalação agendada!')
+        customer.valueForInstallation = valueForInstallation
         sendToListInstall(customer)
     }
     closeModalAndResetItens()
