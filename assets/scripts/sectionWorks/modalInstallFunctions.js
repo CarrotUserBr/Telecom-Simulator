@@ -8,6 +8,7 @@ const installList = []
 function openInfoOfCustomer(customerId) {
     const home = document.getElementById('customerListForInstall')
     const infoInstall = document.querySelector('.infos__install')
+    const formForInstall = document.querySelector('.form__for__install')
     
     home.style.display = 'none'
     infoInstall.style.display = 'flex'
@@ -23,14 +24,16 @@ function openInfoOfCustomer(customerId) {
     if (!advancedForFormInstall.dataset.listenerAdded) {
         advancedForFormInstall.addEventListener('click', () => {
             infoInstall.style.display = 'none'
-            const formForInstall = document.querySelector('.form__for__install')
             formForInstall.style.display = 'flex'
         })
         advancedForFormInstall.dataset.listenerAdded = true
     }
+
+    const state = script.state
+    formForInstall.addEventListener('change', () => revealSelectsInModalInstall(state, customer))
 }
 
-function revealSelectsInModalInstall(state){
+function revealSelectsInModalInstall(state, customer){
     const selects = state.elements.sectionWorks.modalInstallElements.selects
     const installButtonSubmit = document.getElementById('installButtonSubmit')
     if (selects.selectTech.value !== '') {
@@ -44,7 +47,7 @@ function revealSelectsInModalInstall(state){
                     if (selects.selectPowerSuply.value !== '') {
                         installButtonSubmit.style.display = 'block'
                         if (!installButtonSubmit.dataset.listenerAdded) {
-                            installButtonSubmit.addEventListener('click', () => openPuzzleForInstall(state))
+                            installButtonSubmit.addEventListener('click', () => openPuzzleForInstall(state, customer))
                             installButtonSubmit.dataset.listenerAdded = true
                         }
                     } else {
@@ -86,22 +89,29 @@ function closeModalInstall(state) {
         }
     }
     state.elements.sectionWorks.modalsWork.modalInstall.classList.remove('modal__active')
+    const customerListForInstall = document.getElementById('customerListForInstall')
+    const infosInstall = document.querySelector('.infos__install')
+    const formForInstall = document.querySelector('.form__for__install')
+
+    customerListForInstall.style.display = 'flex'
+    infosInstall.style.display = 'none'
+    formForInstall.style.display = 'none'
+    script.lets.isHaveModalEarlyWorksOpened = false
     revealSelectsInModalInstall(state)
 }
 
-function openPuzzleForInstall(state){
+function openPuzzleForInstall(state, customer){
     sectionInventoryFunctions.removeResourcesForInstall()
     state.elements.sectionWorks.earlyWorks.install.classList.remove('modal__active')
     state.elements.sectionWorks.modalInstallElements.modalMiniGame.modalElement.classList.add('modal__active')
-    generatePuzzleForInstall(state)
+    generatePuzzleForInstall(state, customer)
     const closeButton = state.elements.sectionWorks.modalInstallElements.modalMiniGame.modalElement.querySelector('.close__modal__button')
     closeButton.addEventListener('click', () => removeModalMiniGameForInstall(state))
 
     closeModalInstall(state)
-    
 }
 
-function generatePuzzleForInstall(state) {
+function generatePuzzleForInstall(state, customer) {
     const minigame = state.elements.sectionWorks.modalInstallElements.modalMiniGame.installMiniGame
     const numberForElements = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
     for (let i = 1; i <= 16; i++) {
@@ -112,17 +122,18 @@ function generatePuzzleForInstall(state) {
         numberForElements.splice(randomNumber, 1)
         minigame.appendChild(newSpan)
     }
-    verifySequencePuzzleForInstall(state, 1)
+    verifySequencePuzzleForInstall(state, 1, customer)
 }
 
-function verifySequencePuzzleForInstall(state, indexElement) {
+function verifySequencePuzzleForInstall(state, indexElement, customer) {
     const element = document.getElementById('minigameInstallNumber' + indexElement)
     element.addEventListener('click', () => {
         element.style.visibility = 'hidden'
         if (indexElement < 16) {
-            verifySequencePuzzleForInstall(state, indexElement + 1)
+            verifySequencePuzzleForInstall(state, indexElement + 1, customer)
         } else { // You Win Minigame
             removeModalMiniGameForInstall(state)
+            removeCustomerOfListInstall(customer)
             clients.addNewClient()
         }
     })
@@ -221,6 +232,16 @@ function printNumberOfInstallInAlert() {
         alertAssists.textContent = installList.length
     }
 }
+
+function removeCustomerOfListInstall(customer){
+    installList.splice(installList.indexOf(customer.name), 1)
+    const listAssistName = document.querySelector(`.list__assist__item-${customer.id}`)
+    const listAssistInfo = Array.from(document.querySelectorAll(`.list__assist__item__info-${customer.id}`))
+    listAssistName.remove()
+    listAssistInfo.forEach(element => element.remove())
+    printNumberOfInstallInAlert()
+}
+
 export default {
     installList,
     openInfoOfCustomer,
@@ -234,4 +255,5 @@ export default {
     insertItensOnInventoryInSelectOptionsInModalInstall,
     createItemInTheTableInstall,
     printNumberOfInstallInAlert,
+    removeCustomerOfListInstall,
 }

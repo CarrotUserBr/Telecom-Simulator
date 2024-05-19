@@ -229,9 +229,6 @@ for (const work in state.elements.sectionWorks.earlyWorks) {
     }
 }
 
-    // Modal Install EventListener
-    state.elements.sectionWorks.modalInstallElements.formForInstall.addEventListener('change', () => modalInstallFunctions.revealSelectsInModalInstall(state))
-
 export default {
     state,
     lets,
