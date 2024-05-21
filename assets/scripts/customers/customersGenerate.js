@@ -1,9 +1,10 @@
+import modalInstallFunctions from "../sectionWorks/modalInstallFunctions.js";
 import customersInfos from "./customersInfos.js";
 
 let listCustomer = []
 
 class Customer {
-    constructor(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality) {
+    constructor(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality, timeMaxForInstall) {
         this.id = id;
         this.gender = gender;
         this.name = name;
@@ -15,6 +16,9 @@ class Customer {
         this.description = description;
         this.valueMaxInstall = valueMaxInstall;
         this.valueMaxMensality = valueMaxMensality;
+        this.installationInfos = {
+            timeMaxForInstall: timeMaxForInstall,
+        };
     }
 }
 
@@ -35,7 +39,8 @@ function generateNewCustomer() {
     const valueMaxInstall = defineValueOfInstallation(wealthLevel)
     const valueMaxMensality = ''
 
-    return new Customer(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality)
+    const timeMaxForInstall = defineTimeMaxForInstall()
+    return new Customer(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality, timeMaxForInstall)
 }
 
 function randomizeId() {
@@ -131,6 +136,31 @@ function defineValueOfInstallation(wealthLevel) {
     return valueMaxInstall
 }
 
+function defineTimeMaxForInstall() {
+    const randomNumber = Math.floor(Math.random() * 4 + 1)
+    return randomNumber
+}
+
+function reduceTimeMaxForInstall() {
+    modalInstallFunctions.installList.forEach(customer => {
+        const timeMaxForInstall = customer.installationInfos.timeMaxForInstall
+        const newTimeMax = (timeMaxForInstall > 1 ? timeMaxForInstall - 1 : 0)
+        customer.installationInfos.timeMaxForInstall = newTimeMax
+        if (newTimeMax > 0) { 
+            const timeLeftInListInstallRow = document.querySelector('.list__assist__info__customer__body', `.list__assist__item-${customer.id}`)
+            const timeLeftInListInstallColumn = timeLeftInListInstallRow.querySelector('.list__assist__time__left__body')
+            timeLeftInListInstallColumn.textContent = `${newTimeMax} semanas`
+        } else {
+            modalInstallFunctions.removeCustomerOfListInstall(customer)
+            removeCustomerOfCustomerList(customer)
+        }
+    })
+}
+
+function removeCustomerOfCustomerList(customer){
+    console.log('Bye Bye')
+}
+
 function findCustomerById(id) {
     for (const element of listCustomer){
         if (element.id === id) {
@@ -151,5 +181,7 @@ export default {
     randomizeWealthLevel,
     selectDifficulty,
     defineValueOfInstallation,
+    defineTimeMaxForInstall,
+    reduceTimeMaxForInstall,
     findCustomerById,
 }

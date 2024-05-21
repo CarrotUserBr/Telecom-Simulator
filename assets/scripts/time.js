@@ -1,3 +1,4 @@
+import customersGenerate from "./customers/customersGenerate.js"
 import modalAssistFunctions from "./sectionWorks/modalAssistFunctions.js"
 
 const advanceTimeButton = document.getElementById('advanceTimeButton')
@@ -9,6 +10,7 @@ function changeTime() {
     modalAssistFunctions.generateNewAssistInstallItem()
     modalAssistFunctions.printNumberOfAssistsInAlert()
     printTimeInHeader()
+    customersGenerate.reduceTimeMaxForInstall()
 }
 
 function printTimeInHeader() {

@@ -184,10 +184,10 @@ function createItemInTheTableInstall(newCustomer) {
     const trHeadName = document.createElement('tr')
     const thHeadName = document.createElement('th')
     const trHeadInfo = document.createElement('tr')
-    const thHeadInfoType = document.createElement('th')
+    const thHeadInfoTimeLeft = document.createElement('th')
     const thHeadInfoAssist = document.createElement('th')
     const trBodyInfo = document.createElement('tr')
-    const tdBodyInfoType = document.createElement('td')
+    const tdBodyInfoTimeLeft = document.createElement('td')
     const tdBodyInfoAssist = document.createElement('td')
     const icon = document.createElement('i')
     
@@ -196,27 +196,27 @@ function createItemInTheTableInstall(newCustomer) {
     thHeadName.classList.add('list__assist__name__customer__item')
     thHeadName.colSpan = '3'
     trHeadInfo.classList.add('list__assist__info__customer__head', `list__assist__item__info-${newCustomer.id}`)
-    thHeadInfoType.classList.add('list__assist__type__service__head')
+    thHeadInfoTimeLeft.classList.add('list__assist__time__left__head')
     thHeadInfoAssist.classList.add('list__assist__button__install__head')
     trBodyInfo.classList.add('list__assist__info__customer__body', `list__assist__item__info-${newCustomer.id}`)
-    tdBodyInfoType.classList.add('list__assist__type__service__body')
+    tdBodyInfoTimeLeft.classList.add('list__assist__time__left__body')
     tdBodyInfoAssist.classList.add('list__assist__button__install__body', `list__assist__button-${newCustomer.id}`)
     icon.classList.add('bi', 'bi-house-up-fill')
     
     // Add content
     thHeadName.textContent = `${newCustomer.name}`
-    thHeadInfoType.textContent = 'Tempo restante:'
+    thHeadInfoTimeLeft.textContent = 'Tempo restante:'
     thHeadInfoAssist.textContent = 'Instalar'
-    tdBodyInfoType.textContent = newCustomer.timeLeftForInstallation
+    tdBodyInfoTimeLeft.textContent = `${newCustomer.installationInfos.timeMaxForInstall} semanas`
     
     // Append Childs
     table.appendChild(trHeadName)
     table.appendChild(trHeadInfo)
     table.appendChild(trBodyInfo)
     trHeadName.appendChild(thHeadName)
-    trHeadInfo.appendChild(thHeadInfoType)
+    trHeadInfo.appendChild(thHeadInfoTimeLeft)
     trHeadInfo.appendChild(thHeadInfoAssist)
-    trBodyInfo.appendChild(tdBodyInfoType)
+    trBodyInfo.appendChild(tdBodyInfoTimeLeft)
     trBodyInfo.appendChild(tdBodyInfoAssist)
     tdBodyInfoAssist.appendChild(icon)
     printNumberOfInstallInAlert()
