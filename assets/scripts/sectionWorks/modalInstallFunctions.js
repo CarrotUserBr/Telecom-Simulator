@@ -233,13 +233,21 @@ function printNumberOfInstallInAlert() {
     }
 }
 
-function removeCustomerOfListInstall(customer){
-    installList.splice(installList.indexOf(customer.name), 1)
+function removeCustomerOfListInstall(customer) {
     const listAssistName = document.querySelector(`.list__assist__item-${customer.id}`)
     const listAssistInfo = Array.from(document.querySelectorAll(`.list__assist__item__info-${customer.id}`))
-    listAssistName.remove()
-    listAssistInfo.forEach(element => element.remove())
+    if (listAssistName && listAssistInfo) {
+        listAssistName.remove()
+        listAssistInfo.forEach(element => element.remove())
+        installList.splice(installList.indexOf(customer.name),1); // Remover o cliente da lista
+    }
     printNumberOfInstallInAlert()
+}
+
+function printNewTimeMaxForInstall(customer) {
+    const trBodyInfo = document.querySelectorAll(`.list__assist__item__info-${customer.id}`)[1]
+    const tdBodyInfoTimeLeft = trBodyInfo.querySelector('.list__assist__time__left__body')
+    tdBodyInfoTimeLeft.textContent = `${customer.installationInfos.timeMaxForInstall} semanas`
 }
 
 export default {
@@ -256,4 +264,5 @@ export default {
     createItemInTheTableInstall,
     printNumberOfInstallInAlert,
     removeCustomerOfListInstall,
+    printNewTimeMaxForInstall,
 }

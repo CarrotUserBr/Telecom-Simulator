@@ -142,19 +142,23 @@ function defineTimeMaxForInstall() {
 }
 
 function reduceTimeMaxForInstall() {
-    modalInstallFunctions.installList.forEach(customer => {
-        const timeMaxForInstall = customer.installationInfos.timeMaxForInstall
-        const newTimeMax = (timeMaxForInstall > 1 ? timeMaxForInstall - 1 : 0)
-        customer.installationInfos.timeMaxForInstall = newTimeMax
-        if (newTimeMax > 0) { 
-            const timeLeftInListInstallRow = document.querySelector('.list__assist__info__customer__body', `.list__assist__item-${customer.id}`)
-            const timeLeftInListInstallColumn = timeLeftInListInstallRow.querySelector('.list__assist__time__left__body')
-            timeLeftInListInstallColumn.textContent = `${newTimeMax} semanas`
+    const table = document.getElementById('menuAssistListInstall')
+    const listInstall = Array.from(table.querySelectorAll('.list__assist__name__customer'))
+    for (let i = listInstall.length - 1; i >= 0 ; i--) {
+        const customerId = listInstall[i].classList[1].split('-')[1]
+        const customer = findCustomerById(customerId)
+        console.log(customer)
+        let timeMaxForInstall = customer.installationInfos.timeMaxForInstall
+        if (timeMaxForInstall > 1){
+            const newTimeMax = timeMaxForInstall - 1
+            console.log(newTimeMax)
+            customer.installationInfos.timeMaxForInstall = newTimeMax
+            modalInstallFunctions.printNewTimeMaxForInstall(customer)
         } else {
             modalInstallFunctions.removeCustomerOfListInstall(customer)
             removeCustomerOfCustomerList(customer)
         }
-    })
+    }
 }
 
 function removeCustomerOfCustomerList(customer){
