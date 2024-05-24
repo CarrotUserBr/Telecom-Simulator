@@ -147,11 +147,9 @@ function reduceTimeMaxForInstall() {
     for (let i = listInstall.length - 1; i >= 0 ; i--) {
         const customerId = listInstall[i].classList[1].split('-')[1]
         const customer = findCustomerById(customerId)
-        console.log(customer)
         let timeMaxForInstall = customer.installationInfos.timeMaxForInstall
         if (timeMaxForInstall > 1){
             const newTimeMax = timeMaxForInstall - 1
-            console.log(newTimeMax)
             customer.installationInfos.timeMaxForInstall = newTimeMax
             modalInstallFunctions.printNewTimeMaxForInstall(customer)
         } else {
@@ -162,7 +160,7 @@ function reduceTimeMaxForInstall() {
 }
 
 function removeCustomerOfCustomerList(customer){
-    console.log('Bye Bye')
+    listCustomer.splice(listCustomer.indexOf(customer), 1)
 }
 
 function findCustomerById(id) {
