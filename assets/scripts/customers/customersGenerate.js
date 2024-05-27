@@ -125,7 +125,7 @@ function selectDifficulty(wealthLevel) {
     } else if (wealthLevel === 'C') {
         difficulty = 'Média'
     } else if (wealthLevel === 'B') {
-        difficulty = 'Media-Alta'
+        difficulty = 'Média-Alta'
     } else if (wealthLevel === 'A' || wealthLevel === 'A+') {
         difficulty = 'Difícil'
     }

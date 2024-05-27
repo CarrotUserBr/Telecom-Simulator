@@ -113,8 +113,25 @@ function openPuzzleForInstall(state, customer){
 
 function generatePuzzleForInstall(state, customer) {
     const minigame = state.elements.sectionWorks.modalInstallElements.modalMiniGame.installMiniGame
-    const numberForElements = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-    for (let i = 1; i <= 16; i++) {
+    const difficulty = customer.difficulty
+    let difficultyNumber = ''
+    if (difficulty === 'Fácil') {
+        difficultyNumber = 8
+    } else if (difficulty === 'Média') {
+        difficultyNumber = 12
+    } else if (difficulty === 'Média-Alta') {
+        difficultyNumber = 16
+    } else if (difficulty === 'Difícil') {
+        difficultyNumber = 20
+    }
+
+    let numberForElements = []
+
+    for (let i = 1; i <= difficultyNumber; i++) {
+        numberForElements.push(i)
+    }
+    
+    for (let i = 1; i <= difficultyNumber; i++) {
         const newSpan = document.createElement('span')
         const randomNumber = Math.floor(Math.random() * numberForElements.length)
         newSpan.textContent = numberForElements[randomNumber]
@@ -122,15 +139,15 @@ function generatePuzzleForInstall(state, customer) {
         numberForElements.splice(randomNumber, 1)
         minigame.appendChild(newSpan)
     }
-    verifySequencePuzzleForInstall(state, 1, customer)
+    verifySequencePuzzleForInstall(state, 1, customer, difficultyNumber)
 }
 
-function verifySequencePuzzleForInstall(state, indexElement, customer) {
+function verifySequencePuzzleForInstall(state, indexElement, customer, difficultyNumber) {
     const element = document.getElementById('minigameInstallNumber' + indexElement)
     element.addEventListener('click', () => {
         element.style.visibility = 'hidden'
-        if (indexElement < 16) {
-            verifySequencePuzzleForInstall(state, indexElement + 1, customer)
+        if (indexElement < difficultyNumber) {
+            verifySequencePuzzleForInstall(state, indexElement + 1, customer, difficultyNumber)
         } else { // You Win Minigame
             removeModalMiniGameForInstall(state)
             removeCustomerOfListInstall(customer)
