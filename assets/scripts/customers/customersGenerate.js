@@ -32,7 +32,7 @@ function generateNewCustomer() {
     const name = randomizeName(gender)
     const age = Math.floor((Math.random() * 52) + 18)
     const wealthLevel = randomizeWealthLevel()
-    const desiredSpeed = ''
+    const desiredSpeed = defineDesiredSpeed(wealthLevel)
     const difficulty = selectDifficulty(wealthLevel)
     const satisfaction = ''
     const description = ''
@@ -101,6 +101,21 @@ function randomizeWealthLevel() {
     }
 
     return wealthLevel
+}
+
+function defineDesiredSpeed(wealthLevel){
+    const year = document.getElementById('year').textContent.split(' ')[1]
+    let desiredSpeed = ''
+    if (wealthLevel === 'F' || wealthLevel === 'D') {
+        desiredSpeed = `${1*(year**2)} ${3*(year**2)} ${wealthLevel}`
+    } else if (wealthLevel === 'C') {
+        desiredSpeed = `${2*(year**2)} ${6*(year**2)} ${wealthLevel}`
+    } else if (wealthLevel === 'B') {
+        desiredSpeed = `${3*(year**2)} ${9*(year**2)} ${wealthLevel}`
+    } else if (wealthLevel === 'A' || wealthLevel === 'A+') {
+        desiredSpeed = `${4*(year**2)} ${12*(year**2)} ${wealthLevel}`
+    }
+    return desiredSpeed
 }
 
 function selectDifficulty(wealthLevel) {
@@ -181,6 +196,7 @@ export default {
     randomizeGender,
     randomizeName,
     randomizeWealthLevel,
+    defineDesiredSpeed,
     selectDifficulty,
     defineValueOfInstallation,
     defineTimeMaxForInstall,
