@@ -37,7 +37,7 @@ function generateNewCustomer() {
     const satisfaction = ''
     const description = ''
     const valueMaxInstall = defineValueOfInstallation(wealthLevel)
-    const valueMaxMensality = ''
+    const valueMaxMensality = defineValueMaxMensality(wealthLevel)
 
     const timeMaxForInstall = defineTimeMaxForInstall()
     return new Customer(id, name, age, gender, wealthLevel, satisfaction, desiredSpeed, difficulty, description, valueMaxInstall, valueMaxMensality, timeMaxForInstall)
@@ -151,6 +151,24 @@ function defineValueOfInstallation(wealthLevel) {
     return valueMaxInstall
 }
 
+function defineValueMaxMensality(wealthLevel) {
+    let valueMaxMensality = ''
+    
+    if (wealthLevel === 'F') {
+        valueMaxMensality = 50
+    } else if (wealthLevel === 'D') {
+        valueMaxMensality = 70
+    } else if (wealthLevel === 'C') {
+        valueMaxMensality = 80
+    } else if (wealthLevel === 'B') {
+        valueMaxMensality = 100
+    } else if (wealthLevel === 'A' || wealthLevel === 'A+') {
+        valueMaxMensality = 120
+    }
+
+    return valueMaxMensality
+}
+
 function defineTimeMaxForInstall() {
     const randomNumber = Math.floor(Math.random() * 4 + 1)
     return randomNumber
@@ -199,6 +217,7 @@ export default {
     defineDesiredSpeed,
     selectDifficulty,
     defineValueOfInstallation,
+    defineValueMaxMensality,
     defineTimeMaxForInstall,
     reduceTimeMaxForInstall,
     findCustomerById,

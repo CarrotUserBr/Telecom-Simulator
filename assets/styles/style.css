@@ -805,6 +805,7 @@ table th {
     background: var(--bg-terciary-color);
     padding: 1rem .5rem;
     border-radius: 1rem;
+    text-align: center;
 }
 
 #assistCustomerForInstall select,

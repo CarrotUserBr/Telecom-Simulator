@@ -170,8 +170,8 @@ function sendProposal(customer) {
 function verifyConditionsForCustomer(customer) {
     const valueForInstallation = document.getElementById('assistForInstallInputInstallationValue').value
     const plans = document.getElementById('assistForInstallPlans').value
-    const plansSpeed = plans.split('Mb /')[0]
-    const plansPrice = plans.split('/ $')[1]
+    const plansSpeed = parseInt(plans.split('Mb /')[0])
+    const plansPrice = parseFloat(plans.split('/ $')[1])
 
     if (valueForInstallation > customer.valueMaxInstall) {
         console.log('Valor da instalação muito alto!')
