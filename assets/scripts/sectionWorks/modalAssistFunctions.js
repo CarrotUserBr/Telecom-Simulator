@@ -149,6 +149,7 @@ function assistCustomer(customerId) {
     const nameCustomer = customer.name
 
     document.getElementById('assistForInstallNameCustomer').textContent = nameCustomer
+    document.getElementById('assistForInstallSpeedDesired').textContent = `Acima de ${customer.desiredSpeed}Mb de download`
 
     const buttonSendProposal = document.getElementById('sendProposalForCustomer')
 
