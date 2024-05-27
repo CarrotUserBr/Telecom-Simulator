@@ -169,15 +169,19 @@ function sendProposal(customer) {
 
 function verifyConditionsForCustomer(customer) {
     const valueForInstallation = document.getElementById('assistForInstallInputInstallationValue').value
-    const plans = document.getElementById('assistForInstallPlans').value
+    const elementPlans = document.getElementById('assistForInstallPlans')
+    const selectedIndex = elementPlans.selectedIndex
+    const plans = elementPlans.options[selectedIndex].textContent;
     const plansSpeed = parseInt(plans.split('Mb /')[0])
-    const plansPrice = parseFloat(plans.split('/ $')[1])
+    const plansPrice = parseInt(plans.split('/ $')[1])
+    const mediaSpeed = (plansSpeed / customer.desiredSpeed)
+    const maxMensality = customer.valueMaxMensality * mediaSpeed
 
     if (valueForInstallation > customer.valueMaxInstall) {
         console.log('Valor da instalação muito alto!')
     } else if (plansSpeed < customer.desiredSpeed) {
         console.log('Velocidade abaixo do esperado')
-    } else if (plansPrice > customer.valueMaxMensality) {
+    } else if (plansPrice > maxMensality) {
         console.log('Preço da mensalidade muito caro')
     } else {
         console.log('Instalação agendada!')
