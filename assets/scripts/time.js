@@ -1,5 +1,6 @@
 import customersGenerate from "./customers/customersGenerate.js"
 import modalAssistFunctions from "./sectionWorks/modalAssistFunctions.js"
+import energy from "./energy.js"
 
 const advanceTimeButton = document.getElementById('advanceTimeButton')
 advanceTimeButton.addEventListener('click', changeTime)
@@ -11,6 +12,7 @@ function changeTime() {
     modalAssistFunctions.printNumberOfAssistsInAlert()
     printTimeInHeader()
     customersGenerate.reduceTimeMaxForInstall()
+    energy.addEnergy(energy.energyToAdd, energy.maxEnergy)
 }
 
 function printTimeInHeader() {

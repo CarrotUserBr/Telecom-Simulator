@@ -2,6 +2,7 @@ import sectionInventoryFunctions from "../sectionTech/sectionInventoryFunctions.
 import clients from "../clients.js"
 import script from "../script.js"
 import customersGenerate from "../customers/customersGenerate.js"
+import energy from "../energy.js"
 
 const installList = []
 
@@ -149,6 +150,7 @@ function verifySequencePuzzleForInstall(state, indexElement, customer, difficult
         if (indexElement < difficultyNumber) {
             verifySequencePuzzleForInstall(state, indexElement + 1, customer, difficultyNumber)
         } else { // You Win Minigame
+            energy.removeEnergy(20)
             removeModalMiniGameForInstall(state)
             removeCustomerOfListInstall(customer)
             clients.addNewClient()
