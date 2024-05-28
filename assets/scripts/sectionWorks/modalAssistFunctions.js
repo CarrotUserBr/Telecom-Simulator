@@ -168,7 +168,7 @@ function sendProposal(customer) {
 }
 
 function verifyConditionsForCustomer(customer) {
-    const valueForInstallation = document.getElementById('assistForInstallInputInstallationValue').value
+    const valueForInstallation = parseInt(document.getElementById('assistForInstallInputInstallationValue').value)
     const elementPlans = document.getElementById('assistForInstallPlans')
     const selectedIndex = elementPlans.selectedIndex
     const plans = elementPlans.options[selectedIndex].textContent;

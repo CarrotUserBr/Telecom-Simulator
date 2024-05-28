@@ -3,6 +3,7 @@ import clients from "../clients.js"
 import script from "../script.js"
 import customersGenerate from "../customers/customersGenerate.js"
 import energy from "../energy.js"
+import money from "../money.js"
 
 const installList = []
 
@@ -151,20 +152,21 @@ function verifySequencePuzzleForInstall(state, indexElement, customer, difficult
             verifySequencePuzzleForInstall(state, indexElement + 1, customer, difficultyNumber)
         } else { // You Win Minigame
             energy.removeEnergy(20)
-            removeModalMiniGameForInstall(state)
+            money.addMoney(customer.valueForInstallation)
+            removeModalMiniGameForInstall(state, difficultyNumber)
             removeCustomerOfListInstall(customer)
             clients.addNewClient()
         }
     })
 }
 
-function removeModalMiniGameForInstall(state) {
+function removeModalMiniGameForInstall(state, difficultyNumber) {
     state.elements.sectionWorks.modalInstallElements.modalMiniGame.modalElement.classList.remove('modal__active')
-        deletePuzzleForInstall(state)
+        deletePuzzleForInstall(state, difficultyNumber)
 }
 
-function deletePuzzleForInstall() {
-    for (let i = 1; i <= 16; i++) {
+function deletePuzzleForInstall(state, difficultyNumber) {
+    for (let i = 1; i <= difficultyNumber; i++) {
         const deletedElement = document.getElementById('minigameInstallNumber' + i)
         deletedElement.remove()
     }

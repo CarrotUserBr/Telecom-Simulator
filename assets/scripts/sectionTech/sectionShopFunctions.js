@@ -1,4 +1,5 @@
 import sectionInventoryFunctions from "./sectionInventoryFunctions.js"
+import money from "../money.js";
 
 const dates = {
     model: {
@@ -370,8 +371,8 @@ function addItensInInventoryList(state, lets) {
 
         const itensInTable = tableElement.querySelectorAll('.list__item__in__cart__shop__table')
         itensInTable.forEach(element => removeItemListInCartShopTable(state, lets, element))
-
-        // removeMoney(state, lets, totalPrice)
+        console.log(totalPrice)
+        money.removeMoney(totalPrice)
         sectionInventoryFunctions.addInventoryListInSectionInventory(inventoryList, dates)
     })
 }
