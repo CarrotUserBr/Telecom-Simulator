@@ -6,6 +6,7 @@ import energy from "../energy.js"
 import money from "../money.js"
 
 const installList = []
+const energyCoustForInstall = 20
 
 function openInfoOfCustomer(customerId) {
     const home = document.getElementById('customerListForInstall')
@@ -17,9 +18,13 @@ function openInfoOfCustomer(customerId) {
     
     const customer = customersGenerate.findCustomerById(customerId)
     const valueInstallationElement = document.getElementById('valueInstallation')
+    const energyCoustForInstallElement = document.getElementById('energyCoustForInstall')
+    const cableCoustForInstallElement = document.getElementById('cableCoustForInstall')
     const difficultyInstallationElement = document.getElementById('difficultyInstallation')
 
     valueInstallationElement.textContent = customer.valueForInstallation
+    energyCoustForInstallElement.textContent = `${energyCoustForInstall} Energia`
+    cableCoustForInstallElement.textContent = `${customer.installationInfos.cableCoust} metros de cabo de rede`
     difficultyInstallationElement.textContent = customer.difficulty
     
     const advancedForFormInstall = document.getElementById('advancedForFormInstall')

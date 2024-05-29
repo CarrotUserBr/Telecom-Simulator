@@ -18,6 +18,7 @@ class Customer {
         this.valueMaxMensality = valueMaxMensality;
         this.installationInfos = {
             timeMaxForInstall: timeMaxForInstall,
+            cableCoust: 100
         };
     }
 }

@@ -115,7 +115,7 @@ header {
     width: 100%;
     display: flex;
     text-align: center;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
     padding-top: .5rem;
@@ -495,6 +495,20 @@ header {
     justify-content: space-around;
     text-align: center;
     gap: 1rem;
+}
+
+.install__resources li {
+    margin: .5rem 0;
+}
+
+.install__resources li span {
+    color: var(--text-color);
+    padding-left: 1rem;
+}
+
+.install__resources li i {
+    color: var(--icon-color);
+    font-size: 1.5rem
 }
 
 .form__for__install {
