@@ -153,6 +153,7 @@ function verifySequencePuzzleForInstall(state, indexElement, customer, difficult
         } else { // You Win Minigame
             energy.removeEnergy(20)
             money.addMoney(customer.valueForInstallation)
+            customer.weekForPayMensality = document.getElementById('week').textContent.split(' ')[1]
             removeModalMiniGameForInstall(state, difficultyNumber)
             removeCustomerOfListInstall(customer)
             clients.addNewClient()

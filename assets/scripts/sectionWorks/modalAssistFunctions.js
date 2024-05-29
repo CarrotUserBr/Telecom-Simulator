@@ -186,6 +186,7 @@ function verifyConditionsForCustomer(customer) {
     } else {
         console.log('Instalação agendada!')
         customer.valueForInstallation = valueForInstallation
+        customer.valueForMensality = plansPrice
         sendToListInstall(customer)
     }
     closeModalAndResetItens()

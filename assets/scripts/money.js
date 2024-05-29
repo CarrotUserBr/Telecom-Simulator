@@ -1,3 +1,5 @@
+import customersGenerate from "./customers/customersGenerate.js"
+
 function addMoney(add) {
     const moneyCount = document.getElementById('moneyCount')
     const money = parseInt(moneyCount.textContent.split('$')[1])
@@ -26,7 +28,22 @@ function removeMoney(remove) {
     }
 }
 
+function addMoneyOfMensality(){
+    const listCustomer = customersGenerate.listCustomer
+    const currentWeek = document.getElementById('week').textContent.split(' ')[1]
+    for (let i = 0; i < listCustomer.length; i++) {
+        const customer = listCustomer[i];
+        const weekForPayMensality = customer.weekForPayMensality
+        if(weekForPayMensality && weekForPayMensality === currentWeek){
+            const valueForMensality = customer.valueForMensality
+            addMoney(valueForMensality)
+        }
+    }
+
+}
+
 export default {
     addMoney,
     removeMoney,
+    addMoneyOfMensality
 }
