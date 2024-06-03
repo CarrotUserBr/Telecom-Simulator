@@ -15,15 +15,18 @@ function addInventoryListInSectionInventory(inventoryList, dates){
     for (let i = 0; i < inventoryList.length; i++) {
         const element = inventoryList[i];
 
-        // Calcular a quantidade
+        // Calcular a quantidade        
         const itemExisting = table.querySelector(`.item__inventory__list-${element.id}`)
         if (itemExisting) {
             const quantityCell = itemExisting.querySelector('.td__quantity')
             if (quantityCell) {
-                quantityCell.textContent = parseInt(quantityCell.textContent) + 1
+                if (element.type === 'Cabo de Rede') {
+                    quantityCell.textContent = `${parseInt(quantityCell.textContent) + 300} metros`
+                } else {
+                    quantityCell.textContent = parseInt(quantityCell.textContent) + 1
+                }
             }
         } else {
-            
             const trElement = document.createElement('tr')
             const tdElementType = document.createElement ('td')
             const tdElementModel = document.createElement('td')
@@ -34,8 +37,12 @@ function addInventoryListInSectionInventory(inventoryList, dates){
             tdElementType.textContent = element.type
             tdElementModel.textContent = `${element.brand} ${element.model}`
             tdElementQuality.textContent = element.quality
-            tdElementQuantity.textContent = 1
             tdElementQuantity.classList.add('td__quantity')
+            if (element.type === 'Cabo de Rede') {
+                tdElementQuantity.textContent = `300 metros`
+            } else {
+                tdElementQuantity.textContent = 1
+            }
             
             table.appendChild(trElement)
             trElement.appendChild(tdElementType)
@@ -87,7 +94,7 @@ function updateItensList(inventoryListInTable, dates) {
     modalInstallFunctions.insertItensOnInventoryInSelectOptionsInModalInstall(itensList)
 }
 
-function removeResourcesForInstall(){
+function removeResourcesForInstall(customer){
     const listItensToRemove = []
     const formForInstall = document.querySelector('.form__for__install')
     const selectsInModalInstall = Array.from(formForInstall.querySelectorAll('select'))
@@ -96,19 +103,24 @@ function removeResourcesForInstall(){
         const selectedOption = element.options[element.selectedIndex]
         listItensToRemove.push(selectedOption)
     })
-    removeResourcesInTheInventory(listItensToRemove)
+    removeResourcesInTheInventory(listItensToRemove, customer)
 }
 
-function removeResourcesInTheInventory(listItensToRemove){
+function removeResourcesInTheInventory(listItensToRemove, customer){
     listItensToRemove.forEach(element => {
         const id = element.id.split('-')[1]
         const elementWithId = table.querySelector(`.item__inventory__list-${id}`)
+        const elementItem = sectionShopFunctions.findItemById(id)
         if (elementWithId) {
-            const quantityElement = elementWithId.querySelector('.td__quantity')
-            if (quantityElement.textContent == '1'){
-                elementWithId.remove()
+            if (elementItem.type === 'Cabo de Rede') {
+                removeCableCoust(customer.installationInfos.cableCoust, elementWithId)
             } else {
-                quantityElement.textContent = quantityElement.textContent - 1
+                const quantityElement = elementWithId.querySelector('.td__quantity')
+                if (quantityElement.textContent == '1'){
+                    elementWithId.remove()
+                } else {
+                    quantityElement.textContent = quantityElement.textContent - 1
+                }
             }
         }
     })
@@ -116,9 +128,19 @@ function removeResourcesInTheInventory(listItensToRemove){
     modalInstallFunctions.insertItensOnInventoryInSelectOptionsInModalInstall(itensList)
 }
 
+function removeCableCoust(cableCoust, elementModel) {
+    const quantityElement = elementModel.querySelector('.td__quantity')
+    const quantity = parseInt(quantityElement.textContent.split(' ')[0])
+    const newQuantity = quantity - cableCoust
+    quantityElement.textContent = `${newQuantity} metros`
+}  
+
+
+
 export default {
     addInventoryListInSectionInventory,
     updateItensList,
     removeResourcesForInstall,
     removeResourcesInTheInventory,
+    removeCableCoust,
 }

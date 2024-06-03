@@ -170,7 +170,7 @@ const dates = {
         quality: '★ ★ ★ ★ ★' ,
         price: 90.00,
     },
-}
+};
 
 function distributeSalesItemsByCategory(state, lets){
     const datesKeys = Object.keys(dates)
@@ -371,13 +371,19 @@ function addItensInInventoryList(state, lets) {
 
         const itensInTable = tableElement.querySelectorAll('.list__item__in__cart__shop__table')
         itensInTable.forEach(element => removeItemListInCartShopTable(state, lets, element))
-        console.log(totalPrice)
         money.removeMoney(totalPrice)
         sectionInventoryFunctions.addInventoryListInSectionInventory(inventoryList, dates)
     })
 }
 
+function findItemById(idNumber) {
+    const key = `id${idNumber}`
+    const item = dates[key]
+    return item
+}
+
 export default {
+    dates,
     distributeSalesItemsByCategory,
     openShopInTech,
     createItemListForCartShop,
@@ -386,5 +392,5 @@ export default {
     openCartShopTable,
     calculateTotalPriceInCartShopTable,
     addItensInInventoryList,
-    dates,
+    findItemById,
 }

@@ -108,7 +108,7 @@ function closeModalInstall(state) {
 }
 
 function openPuzzleForInstall(state, customer){
-    sectionInventoryFunctions.removeResourcesForInstall()
+    sectionInventoryFunctions.removeResourcesForInstall(customer)
     state.elements.sectionWorks.earlyWorks.install.classList.remove('modal__active')
     state.elements.sectionWorks.modalInstallElements.modalMiniGame.modalElement.classList.add('modal__active')
     generatePuzzleForInstall(state, customer)
